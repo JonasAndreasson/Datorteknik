@@ -1,0 +1,13 @@
+1. 1600000 cycles
+2. 21 bits
+3. 3 registers
+7. 40DD
+8. name:
+	blabla
+	ret
+
+call name
+9.
+they're put in r25 -> r8, with each argument 
+being to registers big the return is always r25, r24
+with the lowest bit being placed in r24.
