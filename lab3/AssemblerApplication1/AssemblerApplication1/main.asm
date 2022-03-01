@@ -44,35 +44,33 @@ defense_routine:
 	ret
 
 delay:
-	ldi r19, 1
-	ldi r18, 0
+	ldi r19, 1 ; ldi 1 cycle
+	ldi r18, 0 
 	loop0:
 	ldi r16, 0
 	ldi r17, 0
 		loop1:
-			ADD r16, r19
-			cpi r16, 255
+			ADD r16, r19 ;add 1
+			cpi r16, 255 ; 1
+			brne loop1 ; brne false 1 true 2
+			ldi r16, 0
+			ADD r17, r19
+			cpi r17, 255
 			brne loop1
-			rjmp loop2
-			loop2:
-				ldi r16, 0
-				ADD r17, r19
-				cpi r17, 255
-				brne loop1
-				ADD r18, r19
-				cpi r18, 5
-				brne loop0
-				rjmp end
+			ADD r18, r19
+			cpi r18, 6
+			brne loop0
+			ret
 
 ledon:
 	ldi r18, (1 << LED2)
 	in r17, DDRB
 	or r17, r18
-	out DDRB, r18
+	out DDRB, r18 ; sets it to 0b100
 	in r17, PORTB
 	or r17, r18
-	out PORTB, r18
-
+	out PORTB, r18; sets it to 0b100
+	ret
 end:
-	rjmp ledon
+	call ledon
 	rjmp end
